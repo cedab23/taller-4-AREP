@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>arima kinen</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+    <h1>Arima Kinen</h1>
+    <div class="description">
+        <img src="arimakinen.png" alt="pista arima kinen" style="width:800px;height:400px;">
+        <h2>Bienvenidos</h2>
+        <div class="textSpace">
+            <p>Estamos en el inicio del arima kinen del 2025, donde los mejores jinetes junto <br>
+                a sus caballos demostraran sus habilidades en la carrera mas prestigiosa de todo japon.
+            </p>
+        </div>
+
+
+        <h2>Descripción</h2>
+
+        <video width="420" height="340" controls>
+            <source src="raceCourse.mp4" type="video/mp4">
+        </video>
+        <div class="textSpace">
+            <p>Esta carrera es en cesped, con una longitud de 2500 metros. Esta calificada actualmente<br>
+                como una de las carreras G1,donde compiten alredor de 16 caballos. Asimismo, los participantes<br>
+                seleccionados se pueden hacer mediante una inscripcion o mediante votacion popular de los fanaticos.
+            </p>
+        </div>
+
+
+        <h2>Formulario de Inscripción</h2>
+
+        <div style="width: 300px;" class="description">
+            <form>
+                <div class="description">
+                    <label for="Jinete">Jinete: </label>
+                    <input type="text" id="jockey" name="Jockey">
+                </div>
+
+                <div class="description">
+                    <label for="caballo">Nombre del caballo: </label>
+                    <input type="text" id="horse" name="Horse">
+                </div>
+
+                <div class="description">
+                    <label for="strategy">Estrategia del caballo:</label>
+                    <select name="strat" id="strat">
+                        <option>Seleccionar</option>
+                        <option value="Delantero">Delantero</option>
+                        <option value="Ritmo">Ritmo</option>
+                        <option value="Tarde">Tarde</option>
+                        <option value="Final">Final</option>
+                    </select>
+                </div>
+
+                <br>
+
+                <button type="button" onclick="register()">Registrar caballo</button>
+
+            </form>
+
+        </div>
+
+        <h2>Caballos Inscritos</h2>
+        <button type="button" onclick="getData()">Ver tabla de caballos</button>
+        <table id="horses" border="1">
+            <thead>
+                <tr>
+                    <th>Jinete</th>
+                    <th>Caballo</th>
+                    <th>Estrategia</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+    <script src="script.js"></script>
+    <footer style="text-align:center;">
+        <h6>"eclipse primero, nadie detras"</h6>
+    </footer>
+</body>
+
+</html>
