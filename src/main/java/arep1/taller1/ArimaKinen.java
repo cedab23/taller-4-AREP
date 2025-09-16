@@ -1,17 +1,14 @@
 package arep1.taller1;
 
 import java.net.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.*;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.lang.reflect.*;
 
 public class ArimaKinen {
 
@@ -79,7 +76,8 @@ public class ArimaKinen {
             System.exit(1);
         }
 
-        Class<?> controllerClass = Saludo.class;
+        // Registro del GreetingController
+        Class<?> controllerClass = GreetingController.class;
         if (controllerClass.isAnnotationPresent(RestController.class)) {
             final Object controllerInstance;
             try {
@@ -103,8 +101,7 @@ public class ArimaKinen {
                             for (int i = 0; i < parameters.length; i++) {
                                 RequestParam requestParam = parameters[i].getAnnotation(RequestParam.class);
                                 if (requestParam != null) {
-                                    String paramValue = req.params.getOrDefault(requestParam.value(),
-                                            requestParam.defaultValue());
+                                    String paramValue = req.params.getOrDefault(requestParam.value(), requestParam.defaultValue());
                                     methodArgs[i] = paramValue;
                                     System.out.println("Param: " + requestParam.value() + " = " + paramValue);
                                 } else {
@@ -123,13 +120,10 @@ public class ArimaKinen {
             }
         }
 
-        /**
-         * Lambda endpoint for refresh table of horses
-         * that will participate on arima kinen
-         */
-        get("/api/table", (req, res) -> {
-            String json = horsesToJson(racers);
-            res.send(200, "OK", "application/json", json.getBytes());
+        // Lambda endpoint for Arima Kinen
+        get("/api/arimakinen2", (req, res) -> {
+            String msg = "{\"result\": \"Arima Kinen Custom Endpoint\"}";
+            res.send(200, "OK", "application/json", msg.getBytes());
         });
 
         while (running) {
@@ -149,7 +143,7 @@ public class ArimaKinen {
                 while ((inputLine = in.readLine()) != null) {
                     if (firstLine) {
                         String[] requestParts = inputLine.split(" ");
-                        method = requestParts[0]; // <-- Aquí obtienes el método
+                        method = requestParts[0];
                         requestUri = new URI(requestParts[1]);
                         path = requestUri.getPath();
                         System.out.println("Method: " + method + " | Path: " + path);
@@ -169,6 +163,7 @@ public class ArimaKinen {
                 if (method.equals("GET")) {
                     handler = getRoutes.get(path);
                 }
+
                 if (handler != null) {
                     handler.handle(new Request(path, method, getParameters(requestUri)), new Response(out));
                 } else if (path.equals("/api/register")) {
@@ -181,15 +176,18 @@ public class ArimaKinen {
                             + " ha sido registrado exitosamente\"}";
                     sendResponse(out, 200, "OK", "application/json", registrationMessage.getBytes());
 
+                } else if (path.equals("/api/table")) {
+                    String json = horsesToJson(racers);
+                    sendResponse(out, 200, "OK", "application/json", json.getBytes());
                 } else {
 
                     Map<String, String> parameters = getParameters(requestUri);
-                    String filePath = "src/resources/";
+                    String filePath = "";
                     String mimeType = null;
                     if (parameters.isEmpty()) {
                         String[] pathParts = requestUri.getPath().split("/");
                         if (pathParts.length > 1 && !pathParts[1].isEmpty()) {
-                            filePath += pathParts[1];
+                            filePath = pathParts[1];
                             String[] parts = filePath.split("\\.");
                             if (parts.length > 1) {
                                 mimeType = MIME_TYPES.get(parts[parts.length - 1]);
@@ -197,7 +195,7 @@ public class ArimaKinen {
                         }
                         System.out.println("file request: " + filePath + " | " + mimeType);
                     } else {
-                        filePath += getFileName(parameters);
+                        filePath = getFileName(parameters);
                         mimeType = MIME_TYPES.get(parameters.get("type"));
                         System.out.println("path request: " + filePath + " | " + mimeType);
                     }
@@ -206,7 +204,7 @@ public class ArimaKinen {
                 out.close();
                 in.close();
             } catch (IOException e) {
-                System.err.println("Accept failed: " + e.getMessage());
+                System.err.println("Accept failed.");
                 System.exit(1);
             } catch (Exception e) {
                 System.err.println("ERROR: " + e.getMessage());
@@ -232,7 +230,12 @@ public class ArimaKinen {
 
     private static void sendFile(OutputStream out, String path, String contentType) throws IOException {
         try {
-            byte[] content = Files.readAllBytes(Path.of(path));
+            InputStream inputStream = ArimaKinen.class.getClassLoader().getResourceAsStream(path);
+            if (inputStream == null) {
+                send404(out);
+                return;
+            }
+            byte[] content = inputStream.readAllBytes();
             sendResponse(out, 200, "OK", contentType, content);
         } catch (Exception e) {
             send404(out);

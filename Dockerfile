@@ -1,14 +1,17 @@
-FROM openjdk:21-jdk-alpine
+FROM eclipse-temurin:21-jdk-alpine AS builder
 WORKDIR /app
-COPY . /app/
-RUN mkdir -p classes && \
-    javac -d classes src/main/java/arep1/taller1/*.java && \
-    echo "Main-Class: arep1.taller1.ArimaKinen" > manifest.txt && \
-    cd classes && \
-    jar cvfm ArimaKinen.jar ../manifest.txt arep1/taller1/*.class
 
-FROM openjdk:21-jre-alpine
-WORKDIR /
-COPY --from=0 /app/classes/ArimaKinen.jar /ArimaKinen.jar
-ENTRYPOINT ["java", "-Xmx256m", "-jar", "/ArimaKinen.jar"]
+COPY pom.xml .
+COPY src ./src
+
+RUN apk update && \
+    apk add --no-cache maven && \
+    mvn clean package -DskipTests
+
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+
+COPY --from=builder /app/target/*.jar app.jar
+
+ENTRYPOINT ["java", "-Xmx256m", "-jar", "app.jar"]
 EXPOSE 5000

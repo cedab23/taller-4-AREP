@@ -1,4 +1,4 @@
-# Entrega inicial taller 3 AREP-101
+# Entrega taller 4 AREP-101
 
 El siguiente readme tiene la finalidad de ilustrar los cambios agregados a la tercera edición
 de este taller, con la finalidad de demostrar el manejo de POJO's e implementación de componentes
@@ -141,6 +141,17 @@ este devolvera un "hola" junto al parametro enviado, mostrado de la siguiente fo
 ### Forma Personalizada
 
 ![personalizado](/src/resources/personalizado.png)
+
+## Video explicatorio de la cuarta edición
+
+Debido a las limitaciones presentes en los markdown, el video se almaceno en
+la siguiente ruta del repositorio
+
+```
+/src/resources/videotaller4.mkv
+```
+
+dicho video tiene como proposito ilustrar la subida en docker realizada de forma correcta y funcional. Asimismo los avances realizados en el despliegue de AWS, el cual fallo por razones desconocidas, no obstante, se muestra el proceso correcto de implementación y asimismo que la instancia e2c cumplia con todos los permisos necesarios, ademas de poseer corriendo la instancia de docker solicitada al momento de intentar abrirla mediante el dns publico de la instancia e2c de AWS. 
 
 ## Referencias
 

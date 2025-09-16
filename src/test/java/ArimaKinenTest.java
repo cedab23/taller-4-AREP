@@ -29,7 +29,7 @@ class ArimaKinenTest {
 
     @Test
     void testRegisterHorse() throws Exception {
-        String json = "{\"horse\":\"Maruzensky\",\"jockey\":\"Cedab23\",\"strategy\":\"Delantero\"}";
+        String json = "{\"horse\":\"Maruzensky\",\"jockey\":\"Cedab23\",\"strategy\":\"Front\"}";
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:5000/api/register"))

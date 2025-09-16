@@ -1,0 +1,39 @@
+body {
+  background-color: rgb(25, 117, 30);
+}
+
+h1 {
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+}
+
+.description{
+  display:flex;
+  flex-direction: column;
+  background-color: rgb(144, 214, 167);
+  background-size: cover;
+  text-align: center;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: space-evenly;
+  
+}
+
+.textSpace{
+  display:flex;
+  flex-direction: column;
+  background-color: rgb(144, 214, 167);
+  background-size:cover;
+  text-align: center;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  justify-content: space-evenly;
+
+}
