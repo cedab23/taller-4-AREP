@@ -148,7 +148,7 @@ Debido a las limitaciones presentes en los markdown, el video se encuentra en el
 ```
 https://youtu.be/_IhKD8olm3k
 ```
-dicho video tiene como proposito ilustrar la subida en docker realizada de forma correcta y funcional. Asimismo los avances realizados en el despliegue de AWS, el cual fallo por razones desconocidas, no obstante, se muestra el proceso correcto de implementación y asimismo que la instancia e2c cumplia con todos los permisos necesarios, ademas de poseer corriendo la instancia de docker solicitada al momento de intentar abrirla mediante el dns publico de la instancia e2c de AWS. 
+dicho video tiene como proposito ilustrar la subida en docker realizada de forma correcta y funcional. Asimismo los avances realizados en el despliegue de AWS, el cual fallo por razones desconocidas, no obstante, se muestra el proceso correcto de implementación y asimismo que la instancia e2c cumplia con todos los permisos necesarios otorgados por la llave publica que fue cargada mediante SSH a la instancia, ademas de poseer corriendo la instancia de docker solicitada al momento de intentar abrirla mediante el dns publico de la instancia e2c de AWS. 
 
 ## Referencias
 
